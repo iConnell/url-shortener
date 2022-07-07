@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import environ
 
 env = environ.Env()
@@ -91,6 +92,10 @@ DATABASES = {
     }
 }
 
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
