@@ -93,9 +93,9 @@ DATABASES = {
 }
 
 
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
-# DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 CORS_ALLOWED_ORIGINS = [
     'https://astonishing-tiramisu-ab4bc1.netlify.app',
