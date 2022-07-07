@@ -24,12 +24,12 @@ def createShortUrlView(request):
 
     return Response(shortUrl, 200)
 
-
+@api_view(['GET'])
 def redirectView(request, shortUrl):
     try:
         obj = Link.objects.get(shortUrl=shortUrl)
     except Link.DoesNotExist:
-        obj = None
+        return Response({"msg":"Url does not exist"}, 404)
 
     if obj is not None:
         return redirect(obj.longUrl)
