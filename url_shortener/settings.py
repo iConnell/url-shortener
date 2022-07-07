@@ -25,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('DJANGO_SECRET')
+SECRET_KEY = "env('DJANGO_SECRET')"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'shlyit.herokuapp.com']
+ALLOWED_HOSTS = ['https://astonishing-tiramisu-ab4bc1.netlify.app', 'shlyit.herokuapp.com',]
 
 
 # Application definition
@@ -93,12 +93,13 @@ DATABASES = {
 }
 
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
+# DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    'https://astonishing-tiramisu-ab4bc1.netlify.app',
+
 ]
 
 # Password validation
