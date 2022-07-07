@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import socket
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Link
@@ -10,11 +11,16 @@ import random
 
 @api_view(['POST'])
 def createShortUrlView(request):
-    data = request.data
-    s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!*^$-_"
-    shortUrl = ''.join(random.sample(s, 6))
+    longUrl = request.data["url"]
+    
+    sample = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!*^$-_"
+    shortUrl = ''.join(random.sample(sample, 6))
 
-    shortUrl = 'http://localhost:8000/' + shortUrl
+    Link.objects.create(longUrl=longUrl, shortUrl=shortUrl)
+    
+    host = request.get_host()
+    shortUrl = 'http://' + host + '/' + shortUrl
+
 
     return Response(shortUrl, 200)
 
