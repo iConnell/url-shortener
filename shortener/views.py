@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from rest_framework.renderers import TemplateHTMLRenderer
 import socket
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.response import Response
 from .models import Link
 from django.shortcuts import redirect
@@ -27,11 +28,13 @@ def createShortUrlView(request):
     return Response(shortUrl, 200)
 
 @api_view(['GET'])
+@renderer_classes([TemplateHTMLRenderer])
 def redirectView(request, shortUrl):
     try:
         obj = Link.objects.get(shortUrl=shortUrl)
     except Link.DoesNotExist:
-        return Response({"msg":"Url does not exist"}, 404)
+        print("right************************************")
+        return Response(template_name='404.html')
 
     if obj is not None:
         return redirect(obj.longUrl)
