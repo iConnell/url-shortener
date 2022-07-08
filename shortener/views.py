@@ -12,6 +12,9 @@ import random
 @api_view(['POST'])
 def createShortUrlView(request):
     longUrl = request.data["url"]
+
+    if not longUrl.startswith("http"):
+        longUrl = "https://" + longUrl
     
     sample = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!*^$-_"
     shortUrl = ''.join(random.sample(sample, 6))
@@ -19,8 +22,7 @@ def createShortUrlView(request):
     Link.objects.create(longUrl=longUrl, shortUrl=shortUrl)
     
     host = request.get_host()
-    shortUrl = 'http://' + host + '/' + shortUrl
-
+    shortUrl = host + '/' + shortUrl
 
     return Response(shortUrl, 200)
 
